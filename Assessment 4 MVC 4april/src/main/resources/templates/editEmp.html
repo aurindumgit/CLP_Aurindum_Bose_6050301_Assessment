@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Edit Employee</title></head>
+<body>
+    <p th:if="${errorMessage != null}" th:text="${errorMessage}" style="color:red;"></p>
+
+    <form th:action="@{/edit/{eid}(eid=*{empId})}" th:object="${empDto}" method="post" style="padding:20px;">
+        <table>
+            <tr>
+                <td><b>ID</b></td>
+                <td th:text="${empDto.empId}"></td>
+				<input type="hidden" th:field="*{empId}" />
+            </tr>
+            <tr>
+                <td><b>Name</b></td>
+                <td>
+                    <input type="text" th:field="*{empName}" /><br/>
+                    <span th:if="${#fields.hasErrors('empName')}" th:errors="*{empName}" style="color:red;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Salary</b></td>
+                <td>
+                    <input type="text" th:field="*{empSal}" /><br/>
+                    <span th:if="${#fields.hasErrors('empSal')}" th:errors="*{empSal}" style="color:red;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><b>DOJ</b></td>
+                <td>
+                    <input type="date" th:field="*{empDoj}" />
+                    <span th:if="${#fields.hasErrors('empDoj')}"  th:errors="*{empDoj}" style="color:red;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Dept</b></td>
+                <td>
+                    <input type="text" th:field="*{deptName}" /><br/>
+                    <span th:if="${#fields.hasErrors('deptName')}" th:errors="*{deptName}" style="color:red;"></span>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <input type="submit" value="Save" />
+    </form>
+</body>
+</html>

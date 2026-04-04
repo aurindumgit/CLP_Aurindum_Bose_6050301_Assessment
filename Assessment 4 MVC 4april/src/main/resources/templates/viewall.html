@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>All Employees</title></head>
+<body>
+    <h1>Employee Management</h1>
+
+    <p th:if="${successMessage != null}" th:text="${successMessage}" style="color:green;"></p>
+    <p th:if="${errorMessage != null}" th:text="${errorMessage}" style="color:red;"></p>
+
+    <div th:if="${employees != null and !#lists.isEmpty(employees)}">
+        <table cellpadding="5" >
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Salary</th>
+                <th>DOJ</th>
+                <th>Dept</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr th:each="emp : ${employees}">
+                <td th:text="${emp.empId}"></td>
+                <td th:text="${emp.empName}"></td>
+                <td th:text="${emp.empSal}"></td>
+                <td th:text="${emp.empDoj}"></td>
+                <td th:text="${emp.deptName}"></td>
+                <td>
+					<a th:href="@{/edit/{eid}(eid=${emp.empId})}">Edit</a>
+				</td>
+                <td>
+                    <a th:href="@{/delete/{eid}(eid=${emp.empId})}" onclick="return confirm('Are you sure you want to delete this employee?')">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <p th:if="${employees == null or #lists.isEmpty(employees)}">No employees found.</p>
+</body>
+</html>
